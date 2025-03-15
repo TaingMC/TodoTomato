@@ -1,0 +1,5 @@
+C:\Users\NorthStarXyz\Desktop\TodoTomato_osx-arm64\TodoTomato.pdb
+C:\Users\NorthStarXyz\Desktop\TodoTomato_osx-arm64\libAvaloniaNative.dylib
+C:\Users\NorthStarXyz\Desktop\TodoTomato_osx-arm64\libHarfBuzzSharp.dylib
+C:\Users\NorthStarXyz\Desktop\TodoTomato_osx-arm64\libSkiaSharp.dylib
+C:\Users\NorthStarXyz\Desktop\TodoTomato_osx-arm64\TodoTomato

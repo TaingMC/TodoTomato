@@ -1,0 +1,5 @@
+C:\Users\NorthStarXyz\Desktop\TodoTomato\TodoTomato.pdb
+C:\Users\NorthStarXyz\Desktop\TodoTomato\av_libglesv2.dll
+C:\Users\NorthStarXyz\Desktop\TodoTomato\libHarfBuzzSharp.dll
+C:\Users\NorthStarXyz\Desktop\TodoTomato\libSkiaSharp.dll
+C:\Users\NorthStarXyz\Desktop\TodoTomato\TodoTomato.exe

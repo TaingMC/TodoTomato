@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TodoTomato.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:todoTomato="clr-namespace:TodoTomato.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TodoTomato.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TodoTomato">
+    
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Left" Width="220" Background="Transparent">
+            <Border Background="Wheat">
+                <DockPanel LastChildFill="True">
+                    <DockPanel DockPanel.Dock="Top">
+                        <Grid ColumnDefinitions="*, Auto" Height="48">
+                            <Border Background="Azure">
+                                <TextBlock Text="ToDoTomato"
+                                           FontWeight="ExtraBold"
+                                           FontSize="24"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Background="Azure" Grid.Column="1">
+                                <Button Content="设置"/>
+                            </Border>
+                        </Grid>
+                    </DockPanel>
+                    <ScrollViewer DockPanel.Dock="Top">
+                        <StackPanel Spacing="25" Margin="0">
+                            <Button Name="AllTasks"
+                                    FontSize="18"
+                                    Content="所有事项"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Command="{Binding ShowAllTasksCommand}"/>
+                            <Button Name="ImportantTasks"
+                                    FontSize="18"
+                                    Content="重要事项"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Command="{Binding ShowImportantTasksCommand}"/>
+                            <Button Name="CompletedTasks"
+                                    FontSize="18"
+                                    Content="已完成"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Command="{Binding ShowCompletedTasksCommand}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Border>
+        <ScrollViewer>
+            <Border x:Name="ContentBorder">
+                <todoTomato:ToDoListWindow DataContext="{Binding ToDoListWindowViewModel}"/>
+            </Border>
+        </ScrollViewer>
+    </DockPanel>
+
+</Window>

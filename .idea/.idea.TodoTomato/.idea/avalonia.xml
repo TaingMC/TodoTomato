@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="TodoTomato/App.axaml" value="TodoTomato/TodoTomato.csproj" />
+        <entry key="TodoTomato/Views/MainWindow.axaml" value="TodoTomato/TodoTomato.csproj" />
+        <entry key="TodoTomato/Views/ToDoListView.axaml" value="TodoTomato/TodoTomato.csproj" />
+        <entry key="TodoTomato/Views/ToDoListWindow.axaml" value="TodoTomato/TodoTomato.csproj" />
+        <entry key="TodoTomato/Views/TodoListView.axaml" value="TodoTomato/TodoTomato.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

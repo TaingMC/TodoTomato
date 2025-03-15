@@ -1,0 +1,116 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:TodoTomato.ViewModels"
+             xmlns:todoTomato="clr-namespace:TodoTomato"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="TodoTomato.Views.ToDoListWindow"
+             x:DataType="viewModels:ToDoListWindowViewModel"
+             x:Name="Root">
+    
+    <UserControl.Resources>
+        <todoTomato:BooleanToColorConverter x:Key="BooleanToColorConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="NewTodoTextBox"
+                     Watermark="在此输入事项名称..."
+                     HorizontalAlignment="Stretch"
+                     Grid.Column="0"
+                     Margin="0,0,5,0"
+                     Text="{Binding TaskName}"/>
+            <Button x:Name="ConfirmButton"
+                    Content="确认"
+                    Grid.Column="1"
+                    Command="{Binding AddTaskCommand}"/>
+            <ListBox x:Name="ToDoListBox"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     HorizontalAlignment="Stretch"
+                     ItemsSource="{Binding CurrentTasks}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                            <Button DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Command="{Binding $parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).CompleteTaskCommand}"
+                                    CommandParameter="{Binding}">
+                                <Panel>
+                                    <TextBlock Text="√"
+                                               IsVisible="{Binding !$parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).IsCompleted}"/>
+                                    <TextBlock Text="删除"
+                                               IsVisible="{Binding $parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).IsCompleted}"/>
+                                </Panel>
+                            </Button>
+                            <Button DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Command="{Binding $parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).ToggleImportantCommand}"
+                                    CommandParameter="{Binding}"
+                                    IsVisible="{Binding !$parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).IsCompleted}">
+                                <TextBlock Text="⭐">
+                                    <TextBlock.Foreground>
+                                        <MultiBinding Converter="{StaticResource BooleanToColorConverter}">
+                                            <Binding Path="$parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext)"/>
+                                            <Binding Path="."/>
+                                        </MultiBinding>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Button>
+                            <Button DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Command="{Binding $parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).RestoreTaskCommand}"
+                                    CommandParameter="{Binding}"
+                                    IsVisible="{Binding $parent[UserControl].((viewModels:ToDoListWindowViewModel)DataContext).IsCompleted}">
+                                <TextBlock Text="↩"/>
+                            </Button>
+                            <TextBlock Text="{Binding}"
+                                       VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Border Grid.Row="2" 
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                Padding="10">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="已完成: "
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding CompletedPomodoroCount}"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Margin="0,0,10,0"/>
+                <TextBlock x:Name="CountdownTimer"
+                           Text="{Binding CountdownDisplay}"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Margin="0,0,10,0"/>
+                <Button x:Name="FocusModeButton"
+                        Content="专注模式"
+                        VerticalAlignment="Center"
+                        Command="{Binding StartCountdownCommand}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
