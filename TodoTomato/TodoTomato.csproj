@@ -28,4 +28,9 @@
     <ItemGroup>
       <Folder Include="Models\" />
     </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Material.Avalonia" Version="3.9.3-nightly.0.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
 </Project>

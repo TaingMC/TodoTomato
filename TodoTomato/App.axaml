@@ -1,15 +1,34 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TodoTomato.App"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              xmlns:local="using:TodoTomato"
-             RequestedThemeVariant="Light">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             RequestedThemeVariant="Dark">
 
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
+
     <Application.Styles>
-        <FluentTheme />
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
     </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="MaterialBackgroundDark">#121212</Color>
+            <Color x:Key="MaterialSurfaceDark">#272727</Color>
+            
+            <SolidColorBrush x:Key="WindowBackground" Color="{StaticResource MaterialBackgroundDark}"/>
+            <SolidColorBrush x:Key="RegionColor" Color="{StaticResource MaterialSurfaceDark}"/>
+            <SolidColorBrush x:Key="TextBoxBackground" Color="#383838"/>
+            <SolidColorBrush x:Key="ButtonBackground" Color="#424242"/>
+            
+            
+            <!-- Material Design elevation overlay colors -->
+            <SolidColorBrush x:Key="MaterialElevation00Brush" Color="{StaticResource MaterialBackgroundDark}"/>
+            <SolidColorBrush x:Key="MaterialElevation01Brush" Color="{StaticResource MaterialSurfaceDark}"/>
+            <SolidColorBrush x:Key="MaterialElevation02Brush" Color="#2D2D2D"/>
+            <SolidColorBrush x:Key="MaterialElevation04Brush" Color="#353535"/>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

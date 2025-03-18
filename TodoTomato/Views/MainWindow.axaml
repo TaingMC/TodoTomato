@@ -8,59 +8,141 @@
         x:Class="TodoTomato.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TodoTomato">
-    
+        Title="TodoTomato"
+        Width="1024"
+        Height="768"
+        CanResize="False">
+
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
     <DockPanel>
         <Border DockPanel.Dock="Left" Width="220" Background="Transparent">
-            <Border Background="Wheat">
+            <Border Background="{DynamicResource RegionColor}">
                 <DockPanel LastChildFill="True">
                     <DockPanel DockPanel.Dock="Top">
                         <Grid ColumnDefinitions="*, Auto" Height="48">
-                            <Border Background="Azure">
-                                <TextBlock Text="ToDoTomato"
+                            <Border Background="{DynamicResource WindowBackground}">
+                                <TextBlock Text="TodoTomato"
+                                           Foreground="White"
                                            FontWeight="ExtraBold"
                                            FontSize="24"
-                                           HorizontalAlignment="Stretch"
+                                           HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Background="Azure" Grid.Column="1">
-                                <Button Content="设置"/>
                             </Border>
                         </Grid>
                     </DockPanel>
+                    <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="10">
+                        <Button DockPanel.Dock="Left"
+                                FontSize="12"
+                                Content="+"
+                                Command="{Binding CreateNewCollectionCommand}"
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Left"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White"
+                                Margin="0,0,5,0"/>
+                        <Button DockPanel.Dock="Right"
+                                FontSize="12"
+                                Content="-"
+                                Command="{Binding DeleteCustomCollectionCommand}"
+                                Width="40"
+                                Height="40"
+                                HorizontalAlignment="Right"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Foreground="White"
+                                Margin="5,0,0,0"/>
+                    </DockPanel>
                     <ScrollViewer DockPanel.Dock="Top">
-                        <StackPanel Spacing="25" Margin="0">
+                        <StackPanel Spacing="15" Margin="10">
                             <Button Name="AllTasks"
-                                    FontSize="18"
+                                    FontSize="16"
                                     Content="所有事项"
                                     HorizontalAlignment="Stretch"
+                                    Height="35"
                                     VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     Command="{Binding ShowAllTasksCommand}"/>
                             <Button Name="ImportantTasks"
-                                    FontSize="18"
+                                    FontSize="16"
                                     Content="重要事项"
                                     HorizontalAlignment="Stretch"
+                                    Height="35"
                                     VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     Command="{Binding ShowImportantTasksCommand}"/>
                             <Button Name="CompletedTasks"
-                                    FontSize="18"
+                                    FontSize="16"
                                     Content="已完成"
                                     HorizontalAlignment="Stretch"
+                                    Height="35"
                                     VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     Command="{Binding ShowCompletedTasksCommand}"/>
+                            <ItemsControl ItemsSource="{Binding CustomCollectionCommands}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button FontSize="16"
+                                                Content="{Binding Name}"
+                                                HorizontalAlignment="Stretch"
+                                                Height="35"
+                                                VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                Margin="0,7.5"
+                                                Command="{Binding}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
             </Border>
+        </Border>
+        <Border DockPanel.Dock="Bottom"
+                Background="{DynamicResource RegionColor}"
+                Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="番茄钟"
+                           VerticalAlignment="Center"
+                           FontSize="16"/>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="已完成: "
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding ToDoListWindowViewModel.CompletedPomodoroCount}"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Margin="0,0,10,0"/>
+                    <TextBlock x:Name="CountdownTimer"
+                               Text="{Binding ToDoListWindowViewModel.CountdownDisplay}"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               Margin="0,0,10,0"/>
+                    <Button x:Name="FocusModeButton"
+                            Content="{Binding ToDoListWindowViewModel.FocusButtonText}"
+                            VerticalAlignment="Center"
+                            Command="{Binding ToDoListWindowViewModel.StartCountdownCommand}"
+                            Margin="0,0,5,0"/>
+                </StackPanel>
+                <Button Grid.Column="2"
+                        x:Name="ResetButton"
+                        Content="重置"
+                        VerticalAlignment="Center"
+                        Command="{Binding ToDoListWindowViewModel.ResetCountdownCommand}"/>
+            </Grid>
         </Border>
         <ScrollViewer>
             <Border x:Name="ContentBorder">

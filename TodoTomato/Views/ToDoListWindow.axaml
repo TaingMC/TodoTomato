@@ -13,6 +13,8 @@
     
     <UserControl.Resources>
         <todoTomato:BooleanToColorConverter x:Key="BooleanToColorConverter"/>
+        <SolidColorBrush x:Key="TextBoxBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="ButtonBackground" Color="#333333"/>
     </UserControl.Resources>
     
     <Grid Margin="10">
@@ -31,16 +33,21 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox x:Name="NewTodoTextBox"
+                     Background="{StaticResource TextBoxBackground}"
                      Watermark="在此输入事项名称..."
                      HorizontalAlignment="Stretch"
                      Grid.Column="0"
+                     Height="40"
                      Margin="0,0,5,0"
                      Text="{Binding TaskName}"/>
             <Button x:Name="ConfirmButton"
+                    Background="{StaticResource ButtonBackground}"
                     Content="确认"
                     Grid.Column="1"
+                    Height="40"
                     Command="{Binding AddTaskCommand}"/>
             <ListBox x:Name="ToDoListBox"
+                     Background="Transparent"
                      Grid.Row="1"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
@@ -88,29 +95,5 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Border Grid.Row="2" 
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                Padding="10">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="已完成: "
-                           VerticalAlignment="Center"
-                           FontSize="16"
-                           Margin="0,0,5,0"/>
-                <TextBlock Text="{Binding CompletedPomodoroCount}"
-                           VerticalAlignment="Center"
-                           FontSize="16"
-                           Margin="0,0,10,0"/>
-                <TextBlock x:Name="CountdownTimer"
-                           Text="{Binding CountdownDisplay}"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           Margin="0,0,10,0"/>
-                <Button x:Name="FocusModeButton"
-                        Content="专注模式"
-                        VerticalAlignment="Center"
-                        Command="{Binding StartCountdownCommand}"/>
-            </StackPanel>
-        </Border>
     </Grid>
 </UserControl>
